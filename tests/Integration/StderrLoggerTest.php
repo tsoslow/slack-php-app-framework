@@ -40,4 +40,13 @@ class StderrLoggerTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $logger->log([], 'hello');
     }
+
+    public function testNonStringMessageThrowsInvalidArgumentException(): void
+    {
+        $stream = fopen('php://temp', 'a+');
+        $logger = new StderrLogger(LogLevel::DEBUG, $stream);
+
+        $this->expectException(InvalidArgumentException::class);
+        $logger->log(LogLevel::ERROR, []);
+    }
 }

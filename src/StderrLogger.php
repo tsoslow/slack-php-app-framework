@@ -75,8 +75,12 @@ class StderrLogger extends AbstractLogger
             $context['exception'] = explode("\n", (string) $exception);
         }
 
-        if (is_object($message) && method_exists($message, '__toString')) {
-            $message = (string) $message;
+        if (!is_string($message)) {
+            if (is_object($message) && method_exists($message, '__toString')) {
+                $message = (string) $message;
+            } else {
+                throw new InvalidArgumentException('Invalid log message: must be a string');
+            }
         }
 
         fwrite($this->stream, json_encode(compact('level', 'message', 'context')) . "\n");
