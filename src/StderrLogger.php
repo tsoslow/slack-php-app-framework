@@ -46,7 +46,7 @@ class StderrLogger extends AbstractLogger
         }
     }
 
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         if (!isset(self::LOG_LEVEL_MAP[$level])) {
             throw new InvalidArgumentException("Invalid log level: {$level}");

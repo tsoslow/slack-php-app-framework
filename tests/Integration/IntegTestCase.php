@@ -102,7 +102,7 @@ class IntegTestCase extends TestCase
 
     protected function failOnLoggedErrors(): void
     {
-        $this->logger->method('error')->willReturnCallback(function (string $message, array $context) {
+        $this->logger->method('error')->willReturnCallback(function ($message, array $context) {
             $message = "Logged an error: {$message}\nContext:\n";
             foreach ($context as $key => $value) {
                 $message .= "- {$key}: {$value}\n";
