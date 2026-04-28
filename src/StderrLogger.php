@@ -52,7 +52,7 @@ class StderrLogger extends AbstractLogger
             if (is_object($level) && method_exists($level, '__toString')) {
                 $level = (string) $level;
             } else {
-                throw new InvalidArgumentException('Invalid log level: must be a string');
+                throw new InvalidArgumentException('Invalid log level: must be a string or stringable object');
             }
         }
 
@@ -79,7 +79,7 @@ class StderrLogger extends AbstractLogger
             if (is_object($message) && method_exists($message, '__toString')) {
                 $message = (string) $message;
             } else {
-                throw new InvalidArgumentException('Invalid log message: must be a string');
+                throw new InvalidArgumentException('Invalid log message: must be a string or stringable object');
             }
         }
 
