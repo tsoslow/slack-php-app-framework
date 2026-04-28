@@ -72,11 +72,34 @@ jobs:
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
-          php-version: 7.4"
+          php-version: "7.4"
           ini-values: "memory_limit=-1"
 
       - name: "Install dependencies (Composer)"
         uses: "ramsey/composer-install@v2"
+
+      - name: "Run unit tests (PHPUnit)"
+        shell: "bash"
+        run: "composer test"
+
+  unit-tests-psr-log-v3:
+    name: "Unit tests (psr/log v3)"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout repository"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: "8.1"
+          ini-values: "memory_limit=-1"
+
+      - name: "Install dependencies with psr/log v3"
+        shell: "bash"
+        run: |
+          composer config platform.php 8.1
+          composer update --with psr/log:^3 --with-all-dependencies --no-interaction
 
       - name: "Run unit tests (PHPUnit)"
         shell: "bash"
